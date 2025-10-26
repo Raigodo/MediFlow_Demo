@@ -1,19 +1,33 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Models\User;
 use Inertia\Inertia;
-use Laravel\Fortify\Features;
+use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return Inertia::render('welcome', [
-        'canRegister' => Features::enabled(Features::registration()),
-    ]);
-})->name('home');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
-});
+Route::redirect('/', "auth")
+    ->name("index");
 
+
+Route::get("home", function(){
+    return Inertia::render("welcome");
+})
+    ->middleware("auth")
+    ->name('home');
+
+    
+require __DIR__.'/ambulance-call.php';
+require __DIR__.'/auth.php';
+require __DIR__.'/client.php';
+require __DIR__.'/diagnose.php';
+require __DIR__.'/employee.php';
+require __DIR__.'/invitation.php';
+require __DIR__.'/measurement.php';
+require __DIR__.'/medicament.php';
+require __DIR__.'/medication.php';
+require __DIR__.'/note.php';
 require __DIR__.'/settings.php';
+require __DIR__.'/structure.php';
+require __DIR__.'/trusted-device.php';
+require __DIR__.'/user.php';
+

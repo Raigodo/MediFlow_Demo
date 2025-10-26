@@ -1,50 +1,38 @@
-import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Spinner } from '@/components/ui/spinner';
+import FormInputLine from '@/components/_shared/form/input/form-input-line';
+import {
+    CompactForm,
+    CompactFormField,
+} from '@/components/_shared/modal/variant/write/compact-form';
+import { Label } from '@/components/_shared/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
-import { store } from '@/routes/password/confirm';
-import { Form, Head } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 
-export default function ConfirmPassword() {
+function ConfirmPasswordPage() {
+    // const {} = useSessionActions();
+
+    const { data, setData, errors, processing } = useForm({
+        // _method: forgotPassword.method,
+        password: '',
+    });
+
+    function handleSubmit() {
+        // post(forgotPassword.url);
+    }
+
     return (
-        <AuthLayout
-            title="Confirm your password"
-            description="This is a secure area of the application. Please confirm your password before continuing."
-        >
-            <Head title="Confirm password" />
-
-            <Form {...store.form()} resetOnSuccess={['password']}>
-                {({ processing, errors }) => (
-                    <div className="space-y-6">
-                        <div className="grid gap-2">
-                            <Label htmlFor="password">Password</Label>
-                            <Input
-                                id="password"
-                                type="password"
-                                name="password"
-                                placeholder="Password"
-                                autoComplete="current-password"
-                                autoFocus
-                            />
-
-                            <InputError message={errors.password} />
-                        </div>
-
-                        <div className="flex items-center">
-                            <Button
-                                className="w-full"
-                                disabled={processing}
-                                data-test="confirm-password-button"
-                            >
-                                {processing && <Spinner />}
-                                Confirm password
-                            </Button>
-                        </div>
-                    </div>
-                )}
-            </Form>
+        <AuthLayout hideNav>
+            <Label className="text-lg">Forgot Password</Label>
+            <CompactForm onSubmit={handleSubmit} processing={processing} className="mt-6">
+                <CompactFormField label="Email">
+                    <FormInputLine
+                        value={data.password}
+                        onChange={(value) => setData('password', value)}
+                        message={errors.password}
+                    />
+                </CompactFormField>
+            </CompactForm>
         </AuthLayout>
     );
 }
+
+export default ConfirmPasswordPage;
