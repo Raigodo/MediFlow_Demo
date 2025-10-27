@@ -34,3 +34,22 @@ username: nurse@email.com
 password: P@55w0rd
 password: P@55w0rd
 
+**Prerekvizīti:**
+Docker
+PHP
+Composer
+npm
+
+**Soļi:**
+1. klonēt repozitoriju:
+   git clone https://github.com/Raigodo/MediFlow_Demo.git
+2. kopēt .env.example failu un pārdēvēt kopiju par .env
+3. instalēt php atkarības:
+   composer i
+4. instalēt javascript atkarības:
+   npm i
+6. startēt laravel sail
+   ./vendor/bin/sail up
+7. sagatavot datu glabātuves
+   ./vendor/bin/sail artisan migrate --seed
+   ./vendor/bin/sail artisan bucket:seed
